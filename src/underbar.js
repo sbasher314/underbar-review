@@ -222,14 +222,6 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
 
-    // return _.reduce(collection, function(allMatch, item) {
-    //   if (iterator !== undefined) {
-    //     return !!iterator(item) && allMatch;
-    //   } else {
-    //     return !!item && allMatch;
-    //   }
-    // }, true);
-
     if (iterator === undefined) {
       iterator = _.identity;
     }
@@ -343,6 +335,27 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    //returns a function --
+    //create cache of precomputed arguments
+    var cache = {};
+    //either the result of function with arguments not encountered, or return value in cache
+    return function() {
+      var args = [];
+      var result;
+
+      for (var i = 0; i < arguments.length; i++) {
+        if (!Array.isArray(arguments[i])) {
+          args.push(arguments[i]);
+        }
+      }
+      if (cache[args] === undefined) {
+        result = func.apply(this, arguments);
+        cache[args] = result;
+        return result;
+      } else {
+        return result;
+      }
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
