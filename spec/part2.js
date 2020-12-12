@@ -197,7 +197,7 @@
         var extended = _.extend(destination, source);
         // Replace this line with an `expect` statement that tests
         // the behavior described by the `it` string
-        expect(extended).to.equal(source);
+        expect(extended).to.eql(source);
         // throw new Error('This test is missing.');
       });
 
@@ -206,7 +206,7 @@
         var source = { a: 'b' };
         var extended = _.extend(destination, source);
 
-        expect(extended.x).to.equal('x');
+        expect(extended['a']).to.equal('b');
       });
 
       it('should extend from multiple source objects', function() {
@@ -279,8 +279,8 @@
 
         var destination = {a: 'a'};
         var source = { a: 1, b: 2};
-
-        expect(destination.a).to.equal(1);
+        var defaulted = _.defaults(destination, source);
+        expect(defaulted.b).to.equal(2);
         // throw new Error('This test is missing.');
       });
 
